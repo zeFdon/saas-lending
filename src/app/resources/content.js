@@ -45,34 +45,34 @@ const social = [
 
 const home = {
     label: 'Home',
-    title: `${person.name}'s Portfolio`,
-    description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Design engineer and builder</>,
-    subline: <>I'm Selene, a design engineer at <InlineCode>FLY</InlineCode>, where I craft intuitive<br/> user experiences. After hours, I build my own projects.</>
+    title: `Company`,
+    description: `Build SAAS`,
+    headline: <>Your Vision, <br/> Our Expertise - <br/> SaaS Solutions Built for Success</>,
+    subline: <>Turn Your Idea into a Thriving SaaS Product with Our Full-Service Approach</>
 }
 
 const about = {
     label: 'About',
-    title: 'About me',
+    title: 'About us',
     description: `Meet ${person.name}, ${person.role} from ${person.location}`,
     tableOfContent: {
-        display: true,
+        display: false,
         subItems: true
     },
     avatar: {
-        display: true
+        display: false
     },
     calendar: {
         display: true,
         link: 'https://cal.com'
     },
     intro: {
-        display: true,
+        display: false,
         title: 'Introduction',
         description: <>Selene is a Jakarta-based design engineer with a passion for transforming complex challenges into simple, elegant design solutions. Her work spans digital interfaces, interactive experiences, and the convergence of design and technology.</>
     },
     work: {
-        display: true, // set to false to hide this section
+        display: false, // set to false to hide this section
         title: 'Work Experience',
         experiences: [
             {
@@ -105,7 +105,7 @@ const about = {
         ]
     },
     studies: {
-        display: true, // set to false to hide this section
+        display: false, // set to false to hide this section
         title: 'Studies',
         institutions: [
             {
@@ -119,7 +119,7 @@ const about = {
         ]
     },
     technical: {
-        display: true, // set to false to hide this section
+        display: false, // set to false to hide this section
         title: 'Technical skills',
         skills: [
             {
