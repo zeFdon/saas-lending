@@ -2,7 +2,7 @@
 	"name": "@once-ui-system/magic-portfolio",
 	"version": "0.1.0",
 	"scripts": {
-		"dev": "next dev -p 13000",
+		"dev": "next dev",
 		"export": "next export",
 		"build": "next build",
 		"start": "next start",
