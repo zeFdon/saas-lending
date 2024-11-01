@@ -8,7 +8,7 @@ const person = {
     },
     role:      'Software Engineer',
     avatar:    '/images/avatar.jpg',
-    location:  'US/Charlotte',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+    location:  'US/Charlotte, NC',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
     languages: ['English', 'Russian', 'Ukraine']  // optional: Leave the array empty if you don't want to display languages
 }
 
@@ -63,13 +63,13 @@ const about = {
         display: true
     },
     calendar: {
-        display: true,
+        display: false,
         link: 'https://cal.com'
     },
     intro: {
         display: true,
         title: 'Introduction',
-        description: <>Selene is a Jakarta-based design engineer with a passion for transforming complex challenges into simple, elegant design solutions. Her work spans digital interfaces, interactive experiences, and the convergence of design and technology.</>
+        description: <></>
     },
     work: {
         display: true, // set to false to hide this section
