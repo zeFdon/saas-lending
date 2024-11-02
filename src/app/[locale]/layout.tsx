@@ -17,8 +17,10 @@ import { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 import { renderContent } from "@/app/resources";
 
+import Script from 'next/script';
+
 export async function generateMetadata(
-	{ params: { locale }}: { params: { locale: string }}
+	{ params: { locale } }: { params: { locale: string } }
 ) {
 
 	const t = await getTranslations();
@@ -57,7 +59,7 @@ const primary = Inter({
 })
 
 type FontConfig = {
-    variable: string;
+	variable: string;
 };
 
 /*
@@ -68,6 +70,7 @@ const secondary: FontConfig | undefined = undefined;
 const tertiary: FontConfig | undefined = undefined;
 /*
 */
+const GA_TRACKING_ID = 'G-CQHWLJT8L7';
 
 const code = Source_Code_Pro({
 	variable: '--font-code',
@@ -77,63 +80,80 @@ const code = Source_Code_Pro({
 
 interface RootLayoutProps {
 	children: React.ReactNode;
-	params: {locale: string};
+	params: { locale: string };
 }
 
 export function generateStaticParams() {
-	return routing.locales.map((locale) => ({locale}));
-  }
+	return routing.locales.map((locale) => ({ locale }));
+}
 
 export default async function RootLayout({
 	children,
-	params: {locale}
-} : RootLayoutProps) {
+	params: { locale }
+}: RootLayoutProps) {
 	unstable_setRequestLocale(locale);
 	const messages = await getMessages();
 	return (
-		<NextIntlClientProvider messages={messages}>
-			<Flex
-				as="html" lang="en"
-				background="page"
-				data-neutral={style.neutral} data-brand={style.brand} data-accent={style.accent}
-				data-solid={style.solid} data-solid-style={style.solidStyle}
-				data-theme={style.theme}
-				data-border={style.border}
-				data-surface={style.surface}
-				data-transition={style.transition}
-				className={classNames(
-					primary.variable,
-					secondary ? secondary.variable : '',
-					tertiary ? tertiary.variable : '',
-					code.variable)}>
-				<Flex style={{minHeight: '100vh'}}
-					as="body"
-					fillWidth margin="0" padding="0"
-					direction="column">
-					<Background
-						gradient={effects.gradient}
-						dots={effects.dots}
-						lines={effects.lines}/>
-					<Flex
-						fillWidth
-						minHeight="16">
-					</Flex>
-					<Header/>
-					<Flex
-						zIndex={0}
-						fillWidth paddingY="l" paddingX="l"
-						justifyContent="center" flex={1}>
+		<>
+			{/* Google Analytics Script */}
+			<Script
+				src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+				strategy="afterInteractive"
+			/>
+			<Script id="google-analytics" strategy="afterInteractive">
+				{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_TRACKING_ID}', {
+            page_path: window.location.pathname,
+          });
+        `}
+			</Script>
+			<NextIntlClientProvider messages={messages}>
+				<Flex
+					as="html" lang="en"
+					background="page"
+					data-neutral={style.neutral} data-brand={style.brand} data-accent={style.accent}
+					data-solid={style.solid} data-solid-style={style.solidStyle}
+					data-theme={style.theme}
+					data-border={style.border}
+					data-surface={style.surface}
+					data-transition={style.transition}
+					className={classNames(
+						primary.variable,
+						secondary ? secondary.variable : '',
+						tertiary ? tertiary.variable : '',
+						code.variable)}>
+					<Flex style={{ minHeight: '100vh' }}
+						as="body"
+						fillWidth margin="0" padding="0"
+						direction="column">
+						<Background
+							gradient={effects.gradient}
+							dots={effects.dots}
+							lines={effects.lines} />
 						<Flex
-							justifyContent="center"
-							fillWidth minHeight="0">
-							<RouteGuard>
-								{children}
-							</RouteGuard>
+							fillWidth
+							minHeight="16">
 						</Flex>
+						<Header />
+						<Flex
+							zIndex={0}
+							fillWidth paddingY="l" paddingX="l"
+							justifyContent="center" flex={1}>
+							<Flex
+								justifyContent="center"
+								fillWidth minHeight="0">
+								<RouteGuard>
+									{children}
+								</RouteGuard>
+							</Flex>
+						</Flex>
+						<Footer />
 					</Flex>
-					<Footer/>
 				</Flex>
-			</Flex>
-		</NextIntlClientProvider>
+			</NextIntlClientProvider>
+		</>
 	);
 }
